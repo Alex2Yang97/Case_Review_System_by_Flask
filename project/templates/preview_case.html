@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Cases</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css" rel="stylesheet">
+  
+  <!-- Favicons -->
+  <link href="/static/boc_logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  
+  <!-- Vendor CSS Files -->
+
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  <!-- multi-selection js Files -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
+
+  <!-- data table js Files -->
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+
+  <!-- =======================================================
+  * Template Name: Vesperr
+  * Updated: May 30 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+</head>
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+            <li class="dropdown"><a style="color: #e72626" href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a class="nav-link active" href="#">All Cases</a></li>
+                    <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                    <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                    <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-link scrollto" href="{{ url_for('preview.preview_case_for_tracking') }}">Tracking</a></li>
+            <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Page Title Section ======= -->
+    <section id="page-title" class="d-flex align-items-center">
+      <div class="container animated">
+        
+        <div class="section-title mt-4" data-aos="fade-up">
+          <br>
+          <h2>Preview All Cases</h2>
+          <p>Preview all cases and select one to work on</p>
+        </div>
+
+      </div>
+
+    </section><!-- End Filter Section -->
+
+    <div class="container">
+      <div class="m-lg-4">
+
+        <form method="POST">
+          {{ filter_case_form.csrf_token }}
+
+          <div class="row justify-content-center">
+
+            <div class="col-auto">
+              {{ filter_case_form.customer_name_sel.label(class="form-label") }}
+              {{ filter_case_form.customer_name_sel(**{"multiple": "multiple"}) }}
+            </div>
+            <div class="col-auto">
+              {{ filter_case_form.case_status_sel.label(class="form-label") }}
+              {{ filter_case_form.case_status_sel(**{"multiple": "multiple"}) }}
+            </div>
+            <div class="col-auto">
+              {{ filter_case_form.case_due_date_sel.label(class="form-label") }}
+              {{ filter_case_form.case_due_date_sel(**{"multiple": "multiple"}) }}
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-4 text-center">
+            {{ filter_case_form.filter_cases(class="btn update-btn mt-2") }}
+            {{ filter_case_form.export_cases(class="btn update-btn mt-2") }}
+          </div>
+          
+        </form>
+
+      </div>
+      
+      <script>
+        $(function () {
+            $('select').multipleSelect({
+                multiple: true,
+                multipleWidth: 400
+            })
+        })
+      </script>
+    </div>
+  
+    <div class="container-fluid text-center" style="width: 95%">
+      <hr>
+      <table id="data" class="table table-striped table-responsive table-bordered table-sm overflow:scroll">
+        <thead>
+          <tr>
+            <th style="white-space: nowrap">Case ID</th>
+            <th style="white-space: nowrap">Case Status</th>
+            <th style="white-space: nowrap">Case Type</th>
+            <th style="white-space: nowrap">Customer ID</th>
+            <th style="white-space: nowrap">Customer Name</th>
+            <th style="white-space: nowrap">Risk Rating</th>
+            <th style="white-space: nowrap">Refresh Date</th>
+            <th>Volume</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th style="white-space: nowrap">Nested Volume</th>
+            <th style="white-space: nowrap">Scheduled Start Date</th>
+            <th style="white-space: nowrap">Scheduled Due Date</th>
+            <th style="white-space: nowrap">Days Over Due</th>
+            <th style="white-space: nowrap">Number of SARs</th>
+            <th style="white-space: nowrap">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ind in cases.index %}
+            <tr>
+              <td>
+                <a href="{{ url_for('working.work_on_case_page', case_id=cases.Case_ID[ind]) }}">{{ cases.Case_ID[ind] }}</a>
+              </td>
+              <td>{{ cases.Case_Status[ind] }}</td>
+              <td>{{ cases.Case_Type[ind] }}</td>
+              <td style="max-width: 10px; white-space: nowrap; overflow: hidden">{{ cases.Customer_ID[ind] }}</td>
+              <td style="max-width: auto; white-space: nowrap; ellipsis; overflow: hidden">{{ cases.Customer_Name[ind] }}</td>
+              <td>{{ cases.Risk_Rating[ind] }}</td>
+              <td>{{ cases.FID_KYC_Refresh_Date[ind] }}</td>
+              <td>{{ cases.Volume[ind] }}</td>
+              <td>{{ cases.Category[ind] }}</td>
+              <td>{{ cases.Type[ind] }}</td>
+              <td>{{ cases.Nested_Volume[ind] }}</td>
+              <td>{{ cases.Scheduled_Start_Date[ind] }}</td>
+              <td>{{ cases.Scheduled_Due_Date[ind] }}</td>
+              <td>{{ cases.Days_Over_Due[ind] }}</td>
+              <td>{{ cases.Number_of_SARs[ind] }}</td>
+              <td>{{ cases.Comment[ind] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $('#data').DataTable({
+          columns: [
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: false}
+          ],
+        });
+      });
+    </script>
+
+  </main><!-- End #main --> 
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+

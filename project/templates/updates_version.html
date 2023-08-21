@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Version Updates</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/boc_logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+            <li class="dropdown"><a href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{{ url_for('preview.preview_case_page') }}">All Cases</a></li>
+                    <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                    <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                    <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Docs Section ======= -->
+    <section id="working" class="d-flex align-items-center">
+        <div class="container">
+        
+            <div class="section-title animated mt-4" data-aos="fade-up">
+                <br>
+                <h2>Version Updates</h2>
+                <p>Review all historical updates on EDD Tracker</p>
+            </div>
+
+            <div class="row justify-content-sm-center h-100">
+
+                <div class="col-lg-12 align-items-center">
+                    <div class="card shadow-lg" data-aos="fade-left" data-aos-delay="200">
+                        <div class="card-body p-5 create-card">
+
+                          <h5>6.15 Version Updates</h5>
+                          <ul>
+                            <li>Add function to update steps info</li>
+                            <li>Change the data type of Volume, Nested and Volume to integer</li>
+                            <li>Update email content</li>
+                            <li>Show Customer Name not Case ID in working steps</li>
+                            <li>Add functions to work on RMB case</li>
+                            <li>Set username case-insensitive when login and signup</li>
+                            <li>Add Admin page to manager user permissions</li>
+                          </ul>
+
+                          <h5>6.16 Version Updates</h5>
+                          <ul>
+                            <li>Refresh Filter when data change</li>
+                            <li>Fix bug in Update steps info: If field is disabled, then field.data will always be None</li>
+                          </ul>
+
+                          <h5>6.21 Version Updates</h5>
+                          <ul>
+                            <li>ADD pages for CIC Cases</li>
+                            <li>Fix bug for username when sending emails</li>
+                            <li>Update send data email function for RBM Cases</li>
+                          </ul>
+
+                          <h5>6.27 Version Updates</h5>
+                          <ul>
+                            <li><strong>Major changes on web layout and design</strong>: Make it more user-friendly and modern</li>
+                            <li>Modify the navbar to make it clearer for users</li>
+                            <li>Move the scroll bar within the table to make it easier for the user to preview the data</li>
+                            <li>Add Version Updates and TODO Updates page so that users can learn more about new features in the latest version and evolving features</li>
+                            <li>Update Admin Page</li>
+                          </ul>
+
+                          <h5>6.28 Version Updates</h5>
+                          <ul>
+                            <li>Add complete fields in Update Step Info Form</li>
+                          </ul>
+
+                          <h5>7.14 Version Updates</h5>
+                          <ul>
+                            <li>Fix bugs of filters of CIC-sub-cases</li>
+                            <li>Add Log database to record all visits of web</li>
+                            <li>Use dynamic verification code for sign up and reset password</li>
+                            <li>Add functions for FI EDD Refresh (in development)</li>
+                          </ul>
+
+                          <h5>7.31 Version Updates</h5>
+                          <ul>
+                            <li>Create test and prod sqlite databases for Log and User_Admin</li>
+                            <li>Report Page: Report Start Date can be earlier than Research (QC) Complete Date. Report Complete Date cannot</li>
+                          </ul>
+
+                          <h5>8.21 Version Updates</h5>
+                          <ul>
+                            <li>Backend Migration: We've successfully transitioned from SQL Server to SQLite, a change that not only boosts the application's performance and agility but also simplifies its setup and maintenance.</li>
+                            <li>Environments Separation: To enhance data quality and security, we've implemented a clear distinction between our test and production environments. This segregation ensures that development and production data remain completely isolated.</li>
+                            <li>Automated Data Backups: Our new setup includes an automatic backup system for the production database, retaining backups for a period of 7 days. This feature is pivotal in safeguarding our data against unforeseen events.</li>
+                            <li>Enhanced Functionality: We've introduced 'Clear' and 'Reopen' functions for the Recommendation/Referral step, offering users more flexibility and control over their actions.</li>
+                            <li>User Access Control: In response to user feedback, we've expanded the range of user access functions, allowing us to tailor permissions according to different roles and responsibilities.</li>
+                            <li>Bug Fixes: We've diligently addressed bugs that were previously reported by users, ensuring a smoother experience with this updated version.</li>
+                          </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section><!-- End About Us Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" style="position: fixed; bottom: 0; width: 100%;">
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-lg-12 text-lg-left text-center">
+          <div class="copyright">
+             Copyright &copy; <strong>LCD - DA Team</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+
+</html>

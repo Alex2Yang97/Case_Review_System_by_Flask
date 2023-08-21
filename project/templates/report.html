@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Report</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/boc_logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- For Work Flow Chart-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- For Work Flow Progress-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+            <li class="dropdown"><a href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{{ url_for('preview.preview_case_page') }}">All Cases</a></li>
+                    <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                    <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                    <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-link scrollto" href="{{ url_for('preview.preview_case_for_tracking') }}">Tracking</a></li>
+            <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+  <main id="main">
+
+    <!-- ======= Working Card Section ======= -->
+    <section id="working-card" class="d-flex align-items-center">
+      <div class="container animated">
+
+        <div class="section-title mt-4" data-aos="fade-up">
+          <br>
+          <h2>Report</h2>
+        </div>
+
+        <div class="row">
+          <div class="container" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              {% for step in steps %}
+                <div class="col-sm">
+                  <div class="step-card
+                    {% if step.status == 'finished' %} finished-step-card{% endif %}
+                    {% if step.status == 'in_progress' %} in-progress-step-card{% endif %}
+                    {% if step.status == 'working' %} working-step-card{% endif %}">
+      
+                    {% if loop.index > 1 %}
+                      <div class="arrow
+                        {% if steps[loop.index-2].status == 'finished' %} finished-arrow{% endif %}
+                        {% if steps[loop.index-2].status == 'in_progress' %} in-progress-arrow{% endif %}
+                        {% if steps[loop.index-2].status == 'working' %} working-arrow{% endif %}">
+                      </div>
+                    {% endif %}
+                    
+                    {% if step.name == "Data" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('working.data_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% elif step.name == "DataQC" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('working.data_qc_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% elif step.name == "Research" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('working.research_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% elif step.name == "ResearchQC" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('working.research_qc_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% elif step.name == "Report" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('working.report_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% elif step.name == "ReportQC" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('working.report_qc_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% elif step.name == "Rec/Ref" %}
+                      <h5 class="card-title">
+                        <a href="{{ url_for('recom_referral.upload_page', case_id=case_id) }}">{{step.name}}</a>
+                      </h5>
+                    {% endif %}
+                    <p class="card-text">{{ step.description }}</p>
+                    <p class="card-text">{{ step.analyst }}</p>
+                    <p class="card-text">{{ step.start }} <br> {{ step.end }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- End Working Card Section -->
+
+    <!-- ======= Working Data Section ======= -->
+    <section id="working-data" class="d-flex align-items-center">
+      <div class="container">
+          <div class="card shadow-lg" data-aos="fade-right" data-aos-delay="200">
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                   aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100"
+                   style="width:{{ percent }}%">
+                {{ percent }}%
+              </div>
+            </div>
+
+            <div class="card-body pt-2 align-items-center">
+              <div class="m-lg-4">
+                
+                <div class="row text-center mb-4">
+                  <h4>Customer Name: {{case.Customer_Name}}</h4>
+                  <h4>Working Status: {{sub_status}}</h4>
+                </div>
+
+                <div class="col-xl-12 text-center">
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                </div>
+
+                <div class="container">
+                  <div class="row justify-content-sm-center h-100">
+                
+                    <div class="col-xl-6">
+                      <form method="POST" class="row">
+                        {{ report_form.csrf_token }}
+        
+                        <div class="col-auto ml-5">
+                          {{ report_form.report_date.label(class="form-label") }}
+                          {{ report_form.report_date(class="form-control") }}
+                        </div>
+        
+                        <div class="col-auto mt-4">
+                          {{ report_form.report_btn(class="btn update-btn mt-2") }}
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="col-xl-6">
+                      <form method="POST" class="row">
+                        {{ report_complete_form.csrf_token }}
+          
+                        <div class="col-auto">
+                          {{ report_complete_form.report_complete_date.label(class="form-label") }}
+                          {{ report_complete_form.report_complete_date(class="form-control") }}
+                        </div>
+                        
+                        <div class="col-auto mt-4">
+                          {{ report_complete_form.report_complete_btn(class="btn update-btn mt-2") }}
+                        </div>
+                      </form>
+                    </div>
+                  
+                    <form method="POST" class="row">
+                      {{ send_report_form.csrf_token }}
+            
+                      <div class="col-md-12 content-center mt-4">
+                        <div class="row justify-content-center">
+                          <div class="col-auto">
+                            {{ send_report_form.nested_value.label(class="form-label") }}
+                            {{ send_report_form.nested_value(class="form-control") }}
+                          </div>
+            
+                          <div class="col-auto">
+                            {{ send_report_form.nested_volume.label(class="form-label") }}
+                            {{ send_report_form.nested_volume(class="form-control") }}
+                          </div>
+            
+                          <div class="col-auto mt-4">
+                            {{ send_report_form.send_reminder_for_qc(class="btn update-btn mt-2") }}
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    
+                  </div>
+                </div>
+
+                <h5 class="card-title mt-4 text-center">Case Information</h5>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Customer ID</div>
+                  <div class="col-auto">{{ case.Customer_ID }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Customer_Name</div>
+                  <div class="col-auto">{{ case.Customer_Name }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">FID KYC Refresh Date</div>
+                  <div class="col-auto">{{ case.FID_KYC_Refresh_Date }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Scheduled Start Date</div>
+                  <div class="col-auto">{{ case.Scheduled_Start_Date }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Scheduled Due Date</div>
+                  <div class="col-auto">{{ case.Scheduled_Due_Date }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Transaction Start Date</div>
+                  <div class="col-auto">{{ case.Transaction_Start_Date }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Transaction End Date</div>
+                  <div class="col-auto">{{ case.Transaction_End_Date }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Risk Rating</div>
+                  <div class="col-auto">{{ case.Risk_Rating }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Category</div>
+                  <div class="col-auto">{{ case.Category }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Type</div>
+                  <div class="col-auto">{{ case.Type }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Volume</div>
+                  <div class="col-auto">{{ case.Volume }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Nested Volume</div>
+                  <div class="col-auto">{{ case.Nested_Volume }}</div>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-6 info-label text-right">Number of SARs</div>
+                  <div class="col-auto">{{ case.Number_of_SARs }}</div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12 mt-4 text-center">
+                    <a href="{{ url_for('working.work_on_case_page', case_id=case.Case_ID) }}" class="btn remove-btn" style="width: 250px">Cancel</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </section><!-- End Working Data Section -->
+
+
+  </main><!-- End #main -->
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+</html>
+
+
+

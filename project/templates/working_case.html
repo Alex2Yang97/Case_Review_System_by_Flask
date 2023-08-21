@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Work on Case</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/boc_logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  <!-- multi-tab pages Files -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- =======================================================
+  * Template Name: Vesperr
+  * Updated: May 30 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+            <li class="dropdown"><a href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{{ url_for('preview.preview_case_page') }}">All Cases</a></li>
+                    <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                    <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                    <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-link scrollto" href="{{ url_for('preview.preview_case_for_tracking') }}">Tracking</a></li>
+            <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+    
+  <main id="main">
+
+    <!-- ======= Working Section ======= -->
+    <section id="working" class="d-flex align-items-center">
+      <div class="container">
+
+        <div class="section-title animated mt-4" data-aos="fade-up">
+          <br>
+          <h2>Work on Case: {{case_id}}</h2>
+          <p>Please select the right Case type to work on</p>
+        </div>
+
+        <div class="col-lg-12 align-items-center">
+          <div class="card shadow-lg" data-aos="fade-left" data-aos-delay="200">
+            <div class="card-body p-5 create-card">
+              <div class="container">
+                
+                <div class="col-xl-12 text-center">
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                </div>
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="case-type1-tab" data-toggle="tab" href="#case-type1">Other Cases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="case-type2-tab" data-toggle="tab" href="#case-type2">RMB Case</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="case-type3-tab" data-toggle="tab" href="#case-type3">CIC Case</a>
+                    </li>
+                </ul>
+                  
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="case-type1">
+                    <div class="m-lg-1">
+                      <form method="POST">
+                        {{ working_case_form.csrf_token }}
+                        
+                        <div class="mb-3 mt-4 row">
+                          <div class="col-md-6">
+                            {{ working_case_form.customer_id.label(class="form-label") }}
+                            {{ working_case_form.customer_id(class="form-control") }}
+                          </div>
+                          <div class="col-md-6">
+                              {{ working_case_form.customer_name.label(class="form-label") }}
+                              {{ working_case_form.customer_name(class="form-control") }}
+                          </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                          <div class="col-md-6">
+                            {{ working_case_form.case_type.label(class="form-label") }}
+                            {{ working_case_form.case_type(class="form-control") }}
+                          </div>
+                          <div class="col-md-6">
+                              {{ working_case_form.case_status.label(class="form-label") }}
+                              {{ working_case_form.case_status(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                          <div class="col-md-3">
+                            {{ working_case_form.kyc_refresh_date.label(class="form-label") }}
+                            {{ working_case_form.kyc_refresh_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_case_form.category.label(class="form-label") }}
+                            {{ working_case_form.category(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                              {{ working_case_form.risk_rating.label(class="form-label") }}
+                              {{ working_case_form.risk_rating(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                              {{ working_case_form.customer_type.label(class="form-label") }}
+                              {{ working_case_form.customer_type(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                          <div class="col-md-3">
+                              {{ working_case_form.sc_start_date.label(class="form-label") }}
+                              {{ working_case_form.sc_start_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                              {{ working_case_form.sc_end_date.label(class="form-label") }}
+                              {{ working_case_form.sc_end_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_case_form.txn_start_date.label(class="form-label") }}
+                            {{ working_case_form.txn_start_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_case_form.txn_end_date.label(class="form-label") }}
+                            {{ working_case_form.txn_end_date(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                          <div class="col-md-12">
+                            {{ working_case_form.comment.label(class="form-label") }}
+                            {{ working_case_form.comment(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                            <div class="col-md-12 text-center">
+                              {{ working_case_form.update_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_case_form.work_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_case_form.remove_btn(class="btn remove-btn", style="width: 250px") }}
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+              
+                  <div class="tab-pane fade" id="case-type2">
+                    <div class="m-lg-1">
+                      <form method="POST">
+                        {{ working_rmb_form.csrf_token }}
+                        
+                        <div class="mb-3 mt-4 row">
+                          <div class="col-md-6">
+                            {{ working_rmb_form.customer_id.label(class="form-label") }}
+                            {{ working_rmb_form.customer_id(class="form-control") }}
+                          </div>
+                          <div class="col-md-6">
+                              {{ working_rmb_form.customer_name.label(class="form-label") }}
+                              {{ working_rmb_form.customer_name(class="form-control") }}
+                          </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                          <div class="col-md-6">
+                            {{ working_rmb_form.case_type.label(class="form-label") }}
+                            {{ working_rmb_form.case_type(class="form-control") }}
+                        </div>
+                          <div class="col-md-6">
+                              {{ working_rmb_form.case_status.label(class="form-label") }}
+                              {{ working_rmb_form.case_status(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                          <div class="col-md-3">
+                            {{ working_rmb_form.kyc_refresh_date.label(class="form-label") }}
+                            {{ working_rmb_form.kyc_refresh_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_rmb_form.category.label(class="form-label") }}
+                            {{ working_rmb_form.category(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                              {{ working_rmb_form.risk_rating.label(class="form-label") }}
+                              {{ working_rmb_form.risk_rating(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                              {{ working_rmb_form.customer_type.label(class="form-label") }}
+                              {{ working_rmb_form.customer_type(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                          
+                          <div class="col-md-3">
+                              {{ working_rmb_form.sc_start_date.label(class="form-label") }}
+                              {{ working_rmb_form.sc_start_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                              {{ working_rmb_form.sc_end_date.label(class="form-label") }}
+                              {{ working_rmb_form.sc_end_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_rmb_form.txn_start_date.label(class="form-label") }}
+                            {{ working_rmb_form.txn_start_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_rmb_form.txn_end_date.label(class="form-label") }}
+                            {{ working_rmb_form.txn_end_date(class="form-control") }}
+                          </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                          <div class="col-md-12">
+                            {{ working_rmb_form.comment.label(class="form-label") }}
+                            {{ working_rmb_form.comment(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                            <div class="col-md-12 text-center">
+                              {{ working_rmb_form.update_rmb_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_rmb_form.work_rmb_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_rmb_form.remove_rmb_btn(class="btn remove-btn", style="width: 250px") }}
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="case-type3">
+                    <div class="m-lg-1">
+                      <form method="POST">
+                        {{ working_cic_form.csrf_token }}
+                        
+                        <div class="mb-3 mt-4 row">
+                          <div class="col-md-12">
+                              {{ working_cic_form.customer_name.label(class="form-label") }}
+                              {{ working_cic_form.customer_name(class="form-control") }}
+                          </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                          <div class="col-md-4">
+                            {{ working_cic_form.case_type.label(class="form-label") }}
+                            {{ working_cic_form.case_type(class="form-control") }}
+                          </div>
+                          <div class="col-md-4">
+                              {{ working_cic_form.case_status.label(class="form-label") }}
+                              {{ working_cic_form.case_status(class="form-control") }}
+                          </div>
+                          <div class="col-md-4">
+                            {{ working_cic_form.category.label(class="form-label") }}
+                            {{ working_cic_form.category(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                          
+                          <div class="col-md-3">
+                            {{ working_cic_form.sc_start_date.label(class="form-label") }}
+                            {{ working_cic_form.sc_start_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_cic_form.sc_end_date.label(class="form-label") }}
+                            {{ working_cic_form.sc_end_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_cic_form.txn_start_date.label(class="form-label") }}
+                            {{ working_cic_form.txn_start_date(class="form-control") }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ working_cic_form.txn_end_date.label(class="form-label") }}
+                            {{ working_cic_form.txn_end_date(class="form-control") }}
+                          </div>
+                        </div>
+                        
+                        <div class="mb-3 row">
+                          <div class="col-md-12">
+                            {{ working_cic_form.comment.label(class="form-label") }}
+                            {{ working_cic_form.comment(class="form-control") }}
+                          </div>
+                        </div>
+        
+                        <div class="mb-3 row">
+                            <div class="col-md-12 text-center">
+                              {{ working_cic_form.update_cic_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_cic_form.add_sub_cic_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_cic_form.work_cic_btn(class="btn update-btn", style="width: 250px") }}
+                              {{ working_cic_form.remove_cic_btn(class="btn remove-btn", style="width: 250px") }}
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <button id="show-button" class="btn remove-btn" style="width: 250px">Show Steps Info</button>
+                    <button id="show-button-cic" class="btn remove-btn" style="width: 250px">Show CIC-sub-Cases</button>
+                    <a href="{{ url_for('preview.preview_case_page') }}" class="btn remove-btn" style="width: 250px">Back</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Working Section -->
+
+    <!-- ======= Update Steps Info Section ======= -->
+
+    <div id="hidden-section" class="container" style="display: none" data-aos="fade-right" data-aos-delay="200">
+
+      <div class="col-xl-12">
+        <div class="card shadow-lg">
+          <div class="card-body pt-2 align-items-center">
+            <div class="m-lg-4">
+
+                <form method="POST">
+                  {{ update_case_step_form.csrf_token }}
+    
+                  <div class="row text-center mb-2">
+                    <h4><strong>Data</strong> and <strong>Data QC</strong></h4>
+                  </div>
+
+                  <div class="mb-3 row text-center">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.data_date.label(class="form-label") }}
+                      {{ update_case_step_form.data_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.data_qc_analyst.label(class="form-label") }}
+                        {{ update_case_step_form.data_qc_analyst(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.data_qc_complete_date.label(class="form-label") }}
+                        {{ update_case_step_form.data_qc_complete_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ update_case_step_form.report_analyst.label(class="form-label") }}
+                      {{ update_case_step_form.report_analyst(class="form-control") }}
+                  </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.volume.label(class="form-label") }}
+                      {{ update_case_step_form.volume(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.value.label(class="form-label") }}
+                        {{ update_case_step_form.value(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.currency.label(class="form-label") }}
+                        {{ update_case_step_form.currency(class="form-control") }}
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.sars_volume.label(class="form-label") }}
+                      {{ update_case_step_form.sars_volume(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ update_case_step_form.high_risk_country_vol.label(class="form-label") }}
+                      {{ update_case_step_form.high_risk_country_vol(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ update_case_step_form.high_risk_country_val.label(class="form-label") }}
+                      {{ update_case_step_form.high_risk_country_val(class="form-control") }}
+                    </div>
+                  </div>
+    
+                  <div class="row text-center mt-4 mb-2">
+                    <h4><strong>Research</strong> and <strong>Research QC</strong></h4>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.research_date.label(class="form-label") }}
+                      {{ update_case_step_form.research_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.research_complete_date.label(class="form-label") }}
+                        {{ update_case_step_form.research_complete_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.research_qc_analyst.label(class="form-label") }}
+                        {{ update_case_step_form.research_qc_analyst(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ update_case_step_form.entity_volume.label(class="form-label") }}
+                      {{ update_case_step_form.entity_volume(class="form-control") }}
+                    </div>
+                  </div>
+    
+                  <div class="mb-3 row">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.research_qc_date.label(class="form-label") }}
+                      {{ update_case_step_form.research_qc_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.research_qc_complete_date.label(class="form-label") }}
+                        {{ update_case_step_form.research_qc_complete_date(class="form-control") }}
+                    </div>
+                  </div>
+    
+                  <div class="row text-center mt-4 mb-2">
+                    <h4><strong>Report</strong> and <strong>Report QC</strong></h4>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.report_date.label(class="form-label") }}
+                      {{ update_case_step_form.report_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.report_complete_date.label(class="form-label") }}
+                        {{ update_case_step_form.report_complete_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ update_case_step_form.nested_value.label(class="form-label") }}
+                      {{ update_case_step_form.nested_value(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ update_case_step_form.nested_volume.label(class="form-label") }}
+                      {{ update_case_step_form.nested_volume(class="form-control") }}
+                    </div>
+                  </div>
+    
+                  <div class="mb-3 row">
+                    <div class="col-md-3">
+                      {{ update_case_step_form.report_qc_date.label(class="form-label") }}
+                      {{ update_case_step_form.report_qc_date(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ update_case_step_form.report_qc_complete_date.label(class="form-label") }}
+                        {{ update_case_step_form.report_qc_complete_date(class="form-control") }}
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                        {{ update_case_step_form.update_step_btn(class="btn update-btn") }}
+                      </div>
+                  </div>
+    
+                </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+        // Show/hide the hidden section when the button is clicked
+        $(document).ready(function() {
+            $('#show-button').click(function() {
+                $('#hidden-section').toggle();
+            });
+        });
+    </script>
+    <!-- End Steps Info Section -->
+    
+    <!-- ======= Show CIC-sub-Cases Info Part ======= -->
+    <div id="hidden-section-cic" class="container-fluid mt-4" style="display: none; width: 90%; overflow:auto; text-overflow: ellipsis">
+      <table id="data" class="table table-striped table-responsive table-bordered table-lg">
+          <thead>
+            <tr>
+              <th style="white-space: nowrap">CIC Case ID</th>
+              <th style="white-space: nowrap">CIC Customer ID</th>
+              <th style="white-space: nowrap">CIC Customer Name</th>
+              <th style="white-space: nowrap">CIC Case Status</th>
+              <th style="white-space: nowrap">Risk Rating</th>
+              <th style="white-space: nowrap">Customer Type</th>
+              <th style="white-space: nowrap">KYC Refresh Date</th>
+              <th style="white-space: nowrap">Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ind in cic_cases.index %}
+              <tr>
+                <td><a href="{{ url_for('cic_creating.update_cic_page', case_id=case_id, cic_case_id=cic_cases.CIC_Case_ID[ind]) }}">{{ cic_cases.CIC_Case_ID[ind] }}</a></td>
+                <td style="max-width: 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden">{{ cic_cases.CIC_Customer_ID[ind] }}</td>
+                <td style="max-width: auto; white-space: break-word; text-overflow: ellipsis; overflow: hidden">{{ cic_cases.CIC_Customer_Name[ind] }}</td>
+                <td>{{ cic_cases.CIC_Case_Status[ind] }}</td>
+                <td>{{ cic_cases.Risk_Rating[ind] }}</td>
+                <td>{{ cic_cases.Type[ind] }}</td>
+                <td>{{ cic_cases.KYC_Refresh_Date[ind] }}</td>
+                <td>{{ cic_cases.Comments[ind] }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $('#data').DataTable({
+          columns: [
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true},
+            {orderable: false, searchable: true}
+          ],
+        });
+      });
+    </script>
+    <script>
+        // Show/hide the hidden section when the button is clicked
+        $(document).ready(function() {
+            $('#show-button-cic').click(function() {
+                $('#hidden-section-cic').toggle();
+            });
+        });
+    </script>
+    <!-- End CIC-sub-Cases Info Part -->
+
+    <!-- ======= Empty Section ======= -->
+    <section class="d-flex align-items-center">
+    </section><!-- End Empty Section -->
+
+  </main><!-- End #main -->
+
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+</html>
+
+
+

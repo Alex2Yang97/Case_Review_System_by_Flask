@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Preview Case SAR</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <link href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css" rel="stylesheet">
+    
+    <!-- Favicons -->
+    <link href="/static/boc_logo.png" rel="icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
+  
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+  
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- data table js Files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+  
+  </head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+            <li class="dropdown"><a href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{{ url_for('preview.preview_case_page') }}">All Cases</a></li>
+                    <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                    <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                    <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-link scrollto" href="{{ url_for('preview.preview_case_for_tracking') }}">Tracking</a></li>
+            <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+  <main id="main">
+    <!-- ======= Page Title Section ======= -->
+    <section id="page-title" class="d-flex align-items-center">
+      <div class="container animated">
+        
+        <div class="section-title mt-4" data-aos="fade-up">
+          <br>
+          <h2>Preview Case SAR</h2>
+          <p>Preview all SAR Referrals For Case {{case_id}}</p>
+        </div>
+
+      </div>
+
+    </section><!-- End Filter Section -->
+
+    <div class="container">
+      <div class="m-lg-4">
+
+        <form method="POST">
+          {{ filter_sar_form.csrf_token }}
+
+          <div class="col-md-12 content-center">
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                {{ filter_sar_form.sar_status.label(class="form-label") }}
+                {{ filter_sar_form.sar_status(class="form-control") }}
+              </div>
+
+              <div class="col-auto">
+                {{ filter_sar_form.filter_sar(class="btn update-btn mt-4") }}
+                {{ filter_sar_form.export_sar(class="btn update-btn mt-4") }}
+                {{ filter_sar_form.add_sar(class="btn update-btn mt-4") }}
+                <a href="{{ url_for('recom_referral.upload_page', case_id=case_id) }}" class="btn remove-btn mt-4">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      
+    </div>
+
+    <div class="container-fluid text-center" style="width: 95%">
+      <hr>
+      <table id="data" class="table table-striped table-responsive table-bordered table-sm overflow:scroll">
+          <thead>
+            <tr>
+              <th>SAR_Referral_ID</th>
+              <th>Status</th>
+              <th>Subject_Name</th>
+              <th>Activity_Start_Date</th>
+              <th>Activity_End_Date</th>
+              <th>Amount</th>
+              <th>Subject_Account_NO</th>
+              <th>Referral_Reason</th>
+              <th>Reviewed_By_SAR</th>
+              <th>Referral_Necessary</th>
+              <th>SAR_Team_Comment</th>
+              <th>Referral_Warranted</th>
+              <th>EDD_Comment</th>
+              <th>Initiated_Date</th>
+              <th>CTRL_CMT</th>
+              <th>Date_Submitted</th>
+              <th>Date_Acknowledged</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for ind in sars.index %}
+            <tr>
+              <td style="max-width: 10px; white-space: nowrap">
+                <a href="{{ url_for('recom_referral.each_sar', case_id=case_id, sar_id=sars.SAR_Referral_ID[ind]) }}">
+                  {{ sars.SAR_Referral_ID[ind] }}
+                </a>
+              </td>
+              <td>{{ sars.Status[ind] }}</td>
+              <td>{{ sars.Subject_Name[ind] }}</td>
+              <td>{{ sars.Activity_Start_Date[ind] }}</td>
+              <td>{{ sars.Activity_End_Date[ind] }}</td>
+              <td>{{ sars.Amount[ind] }}</td>
+              <td>{{ sars.Subject_Account_NO[ind] }}</td>
+              <td style="max-width: 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden">
+                {{ sars.Referral_Reason[ind] }}
+              </td>
+              <td>{{ sars.Reviewed_By_SAR[ind] }}</td>
+              <td>{{ sars.Referral_Necessary[ind] }}</td>
+              <td>{{ sars.SAR_Team_Comment[ind] }}</td>
+              <td>{{ sars.Referral_Warranted[ind] }}</td>
+              <td>{{ sars.EDD_Comment[ind] }}</td>
+              <td>{{ sars.Initiated_Date[ind] }}</td>
+              <td>{{ sars.CTRL_CMT[ind] }}</td>
+              <td>{{ sars.Date_Submitted[ind] }}</td>
+              <td>{{ sars.Date_Acknowledged[ind] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $('#data').DataTable({
+          columns: [
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true},
+            {orderable: true, searchable: true}
+          ],
+        });
+      });
+    </script>
+
+  </main><!-- End #main -->
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+</html>
+
+
+

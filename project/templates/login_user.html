@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>EDD Tracker Sign in</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/boc_logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Vesperr
+  * Updated: May 30 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <h1><a href="index.html"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#signin">Sign in</a></li>          
+          <li><a class="nav-link scrollto" href="#about">About us</a></li>
+          <li><a class="getstarted scrollto" href="{{ url_for('auth.signup') }}">Sign up</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Signin Section ======= -->
+    <section id="signin" class="d-flex align-items-center">
+      <div class="container">
+
+        <div class="row justify-content-sm-center h-100">
+          
+          <div class="text-center my-5" data-aos="fade-left" data-aos-delay="200">
+						<img src="/static/assets/img/bank-of-china-logo.png" class="img-fluid animated">
+					</div>
+
+          <div class="col-lg-6 align-items-center">
+            <div class="card shadow-lg" data-aos="fade-left" data-aos-delay="200">
+              <div class="card-body p-5">
+                <h1 class="fs-4 card-title fw-bold mb-4">Welcome to EDD Tracker</h1>
+        
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                  <div class="mb-3">
+                    <label class="mb-2 text-muted" for="username">Username</label>
+                    <input id="username" type="username" class="form-control" name="username" value="" required autofocus>
+                    <div class="invalid-feedback">
+                      Username is invalid
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="mb-2 w-100">
+                      <label class="text-muted" for="password">Password</label>
+                      <a href="{{ url_for('auth.forgot_page') }}" class="float-end">
+                        Forgot Password?
+                      </a>
+                    </div>
+                    <input id="password" type="password" class="form-control" name="password" required>
+                      <div class="invalid-feedback">
+                        Password is required
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-check">
+                        <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                        <label for="remember" class="form-check-label">Remember Me</label>
+                      </div>
+                    </div>
+                    
+                    <div class="col-lg-6 float-right">
+                      <div class="text-end">
+                        <button type="submit" class="signin-btn">Sign in</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+              <div class="card-footer py-3 border-0">
+                <div class="text-center">
+                  Don't have an account? <a href="{{ url_for('auth.signup') }}">Create One</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+            <p>
+              This tool is currently only open to specified ip addresses
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Please contact <a href = "mailto: zryang@bocusa.com">Alex @ LCD - DA</a> for any qestions</li>
+              <li><i class="ri-check-double-line"></i> The current version was released on 06/26/2023</li>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="300">
+            <p>
+              This tool was developed by LCD's Data Analytics Team
+            </p>
+            <a href="https://bocus-sites-test/nyb/lcd/SitePages/LCD_homepage.aspx" class="btn-learn-more">Learn More about LCD - DA Team</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-lg-12 text-lg-left text-center">
+          <div class="copyright">
+             Copyright &copy; <strong>LCD - DA Team</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/vesperr-free-bootstrap-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+
+</html>

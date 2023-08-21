@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Work on SAR</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/boc_logo.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  
+  <!-- multi-tab pages Files -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- =======================================================
+  * Template Name: Vesperr
+  * Updated: May 30 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+            <li class="dropdown"><a href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{{ url_for('preview.preview_case_page') }}">All Cases</a></li>
+                    <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                    <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                    <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-link scrollto" href="{{ url_for('preview.preview_case_for_tracking') }}">Tracking</a></li>
+            <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+    
+  <main id="main">
+
+    <!-- ======= Working Section ======= -->
+    <section id="working" class="d-flex align-items-center">
+      <div class="container">
+
+        <div class="section-title animated mt-4" data-aos="fade-up">
+          <br>
+          <h2>Work on SAR</h2>
+          <p>Case ID: {{case_id}} - SAR Referral ID: {{sar_id}}</p>
+        </div>
+
+        <div class="col-lg-12 align-items-center">
+          <div class="card shadow-lg" data-aos="fade-left" data-aos-delay="200">
+            <div class="card-body p-5 create-card">
+              <div class="container">
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <form method="POST">
+                    {{ sar_form.csrf_token }}
+
+                    <div class="col-md-12 content-center mb-3">
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                {{ sar_form.sar_status.label(class="form-label") }}
+                                {{ sar_form.sar_status(class_="form-control") }}
+                            </div>
+                            <div class="col-auto">
+                                {{ sar_form.initiated_date.label(class="form-label") }}
+                                {{ sar_form.initiated_date(class_="form-control") }}
+                            </div>
+                            <div class="col-auto">
+                                {{ sar_form.date_submitted.label(class="form-label") }}
+                                {{ sar_form.date_submitted(class_="form-control") }}
+                            </div>
+                            <div class="col-auto">
+                                {{ sar_form.date_acknowledged.label(class="form-label") }}
+                                {{ sar_form.date_acknowledged(class_="form-control") }}
+                            </div>
+                        </div>
+                    </div>      
+
+                    <div class="mb-3 row">
+                        <div class="col-md-12">
+                            {{ sar_form.subject_name.label(class="form-label") }}
+                            {{ sar_form.subject_name(class_="form-control") }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-md-12">
+                            {{ sar_form.subject_acc_no.label(class="form-label") }}
+                            {{ sar_form.subject_acc_no(class_="form-control") }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-md-4">
+                            {{ sar_form.amount.label(class="form-label") }}
+                            {{ sar_form.amount(class_="form-control") }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ sar_form.currency.label(class="form-label") }}
+                            {{ sar_form.currency(class_="form-control") }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ sar_form.activity_start_date.label(class="form-label") }}
+                            {{ sar_form.activity_start_date(class_="form-control") }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ sar_form.activity_end_date.label(class="form-label") }}
+                            {{ sar_form.activity_end_date(class_="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col-md-3">
+                            {{ sar_form.reviewed_by_sar.label(class="form-label") }}
+                            {{ sar_form.reviewed_by_sar(class_="form-control") }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ sar_form.referral_necessary.label(class="form-label") }}
+                            {{ sar_form.referral_necessary(class_="form-control") }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ sar_form.referral_warranted.label(class="form-label") }}
+                            {{ sar_form.referral_warranted(class_="form-control") }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ sar_form.ctrl.label(class="form-label") }}
+                            {{ sar_form.ctrl(class_="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col-md-12">
+                            {{ sar_form.referral_reason.label(class="form-label") }}
+                            {{ sar_form.referral_reason(class_="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col-md-12">
+                            {{ sar_form.sar_team_comment.label(class="form-label") }}
+                            {{ sar_form.sar_team_comment(class_="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col-md-12">
+                            {{ sar_form.edd_team_comment.label(class="form-label") }}
+                            {{ sar_form.edd_team_comment(class_="form-control") }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 row">
+                        <div class="col-md-12 text-center">
+                            {{ sar_form.update_btn(class="btn update-btn") }}
+                            {{ sar_form.close_btn(class="btn update-btn") }}
+                            {{ sar_form.export_btn(class="btn update-btn") }}
+                            {{ sar_form.remove_btn(class="btn remove-btn") }}
+                        </div>
+                    </div>
+
+                </form>
+                
+                <div class="row mt-2">
+                    <div class="col-md-12 text-center">
+                      <a href="{{ url_for('recom_referral.preview_sar', case_id=case_id) }}" class="btn remove-btn">Cancel</a>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Working Section -->
+
+
+    <script>
+        // Show/hide the hidden section when the button is clicked
+        $(document).ready(function() {
+            $('#show-button').click(function() {
+                $('#hidden-section').toggle();
+            });
+        });
+    </script>
+    <!-- End Steps Info Section -->
+    
+
+  </main><!-- End #main -->
+
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+
+</body>
+</html>
+
+
+

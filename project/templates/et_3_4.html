@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      
+        <title>EDD Tracking</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+      
+        <!-- Favicons -->
+        <link href="/static/boc_logo.png" rel="icon">
+      
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+        <!-- Vendor CSS Files -->
+      
+        <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      
+        <!-- Template Main CSS File -->
+        <link href="/static/assets/css/style.css" rel="stylesheet">
+      
+        <!-- data table js Files -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+        
+    </head>
+<body>
+  <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+        <div class="logo">
+            <h1><a href="{{ url_for('main.index_page') }}"> <img src="/static/boc_logo.png"> EDD Tracker</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto" href="{{ url_for('main.index_page') }}">Home</a></li>
+                <li><a class="nav-link scrollto" href="{{ url_for('create.create_case_page') }}">Create</a></li>
+                <li class="dropdown"><a href="#"><span>Preview</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="{{ url_for('preview.preview_case_page') }}">All Cases</a></li>
+                        <li><a href="{{ url_for('preview.cic_cases_page') }}">CIC-sub-cases</a></li>
+                        <li><a href="{{ url_for('preview.recom_page') }}">Recommendations</a></li>
+                        <li><a href="{{ url_for('preview.sar_page') }}">SAR Referrals</a></li>
+                        <li><a href="{{ url_for('preview.sanc_page') }}">Sanction Referrals</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link scrollto" href="{{ url_for('preview.preview_case_for_tracking') }}">Tracking</a></li>
+                <li><a class="nav-link scrollto" href="{{url_for('main.download_metrics')}}">Metrics</a></li>
+                <li><a class="nav-link scrollto" href="{{ url_for('realboss.admin_page') }}">Admin</a></li>
+                <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">Sign out</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+    <main id="main">
+
+        <!-- ======= Create Section ======= -->
+        <section id="create" class="d-flex align-items-center">
+            <div class="container">
+            
+                <div class="section-title animated mt-4" data-aos="fade-up">
+                    <br>
+                    <h2>Phase 2</h2>
+                    <p>Step3, Step4, Step5</p>
+                </div>
+
+                <div class="row justify-content-sm-center mb-4">
+                    <div class="col-xl-8">
+                        <div class="card shadow-lg" data-aos="fade-down" data-aos-delay="200">
+                            <div class="card-body pt-2 align-items-center">
+                                <div class="m-lg-4">
+
+                                    <h5 class="card-title mt-4 text-center">Case Information</h5>
+
+                                    <div class="row text-center">
+                                        <div class="col-6 info-label text-right">Customer ID</div>
+                                        <div class="col-auto">{{case_info.Customer_ID}}</div>
+                                    </div>
+
+                                    <div class="row text-center">
+                                        <div class="col-6 info-label text-right">Customer Name</div>
+                                        <div class="col-auto">{{case_info.Customer_Name}}</div>
+                                    </div>
+
+                                    <div class="row text-center">
+                                        <div class="col-6 info-label text-right">Fenergo Legal Entity ID</div>
+                                        <div class="col-auto">??????</div>
+                                    </div>
+
+                                    <div class="row text-center">
+                                        <div class="col-6 info-label text-right">Current Risk Rating</div>
+                                        <div class="col-auto">{{case_info.Risk_Rating}}</div>
+                                    </div>
+
+                                    <div class="row text-center">
+                                        <div class="col-6 info-label text-right">Current KYC Due Date</div>
+                                        <div class="col-auto">{{case_info.Scheduled_Due_Date}}</div>
+                                    </div>
+
+                                    <div class="col-md-12 text-center mt-4">
+                                        <a href="{{ url_for('tracking_edd.step_1_2_page', case_id=case_id) }}" class="btn remove-btn">Back</a>
+                                        <a href="{{ url_for('tracking_edd.step_5_6_7_page', case_id=case_id) }}" class="btn update-btn">Next</a>
+                                        <a href="{{ url_for('preview.preview_case_for_tracking') }}" class="btn remove-btn">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="row justify-content-sm-center mb-4">
+                    
+                    <div class="col-xl-12 text-center">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+    
+                    <div class="col-xl-12">
+                        <div class="card shadow-lg" data-aos="fade-right" data-aos-delay="200">
+                            <div class="card-body pt-2 align-items-center">
+                                <div class="m-lg-4">
+
+                                    <div class="row text-center">
+                                        <h4>Step Three</h4>
+                                        <p><strong>KYC Analyst send CRR Draft and KYC formn to QC Analyst</strong></p>
+                                    </div>
+
+                                    <form method="POST" enctype="multipart/form-data">
+                                        {{ step_three_form.csrf_token }}
+                                        <div class="row justify-content-center text-center">
+                                            <div class="col-auto">
+                                                {{ step_three_form.crr_draft.label(class="form-label") }}
+                                                {{ step_three_form.crr_draft(class="form-control") }}
+                                            </div>
+                                            <div class="col-auto">
+                                                {{ step_three_form.kyc_form.label(class="form-label") }}
+                                                {{ step_three_form.kyc_form(class="form-control") }}
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center text-center mt-4">
+                                            <div class="col-xl-2">
+                                                {{ step_three_form.kyc_analyst.label(class="form-label") }}
+                                                {{ step_three_form.kyc_analyst(class="form-control") }}
+                                            </div>
+                                            <div class="col-xl-2">
+                                                {{ step_three_form.qc_analyst.label(class="form-label") }}
+                                                {{ step_three_form.qc_analyst(class="form-control") }}
+                                            </div>
+                                            <div class="col-auto">
+                                                {{ step_three_form.step3_date.label(class="form-label") }}
+                                                {{ step_three_form.step3_date(class="form-control") }}
+                                            </div>
+                                            <div class="col-auto mt-4">
+                                                {{ step_three_form.send_btn(class="btn update-btn") }}
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form method="POST">
+                                        {{ download_refresh_review.csrf_token }}
+                                        <div class="row justify-content-center text-center mt-4">
+                                            <div class="col-auto">
+                                                <a href="{{ url_for('tracking_edd.template_KYC_form_download') }}" class="btn remove-btn">KYC Form Template</a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="{{ url_for('tracking_edd.template_crr_FI_download') }}" class="btn remove-btn">CRR FI Template</a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="{{ url_for('tracking_edd.template_crr_FINCB_download') }}" class="btn remove-btn">CRR FINCB Template</a>
+                                            </div>
+                                            <div class="col-auto">
+                                                {{ download_refresh_review.download_file1_btn(class="btn update-btn") }}
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row justify-content-sm-center h-100 mb-4">
+
+                    <div class="col-xl-12 mb-4">
+                        <div class="card shadow-lg" data-aos="fade-right" data-aos-delay="200">
+                            <div class="card-body pt-2 align-items-center">
+                                <div class="m-lg-4">
+
+                                    <div class="row text-center">
+                                        <h4>Step Four</h4>
+                                        <p><strong>Any Analyst send CRR Draft to FID BSA officer for approval</strong></p>
+                                    </div>
+
+                                    <form method="POST" enctype="multipart/form-data">
+                                        {{ step_four_form.csrf_token }}
+                                        
+                                        <div class="row justify-content-center text-center mt-2">
+                                            <div class="col-md-auto">
+                                                {{ step_four_form.submit_date.label(class="form-label") }}
+                                                {{ step_four_form.submit_date(class="form-control") }}
+                                            </div>
+                                            <div class="col-md-auto">
+                                                {{ step_four_form.fid_bsa_officer.label(class="form-label") }}
+                                                {{ step_four_form.fid_bsa_officer(class="form-control") }}
+                                            </div>
+                                            <div class="col-md-auto">
+                                                {{ step_four_form.crr_draft.label(class="form-label") }}
+                                                {{ step_four_form.crr_draft(class="form-control") }}
+                                            </div>
+                                            <div class="col-md-auto mt-4">
+                                                {{ step_four_form.send_btn(class="btn update-btn") }}
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form method="POST">
+                                        {{ download_reviewed_crr_form.csrf_token }}
+                                        <div class="row justify-content-center mt-2">
+                                            <div class="col-auto text-center">
+                                                {{ download_reviewed_crr_form.download_file2_btn(class="btn update-btn") }}
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-xl-12 mb-4">
+                        <div class="card shadow-lg" data-aos="fade-left" data-aos-delay="200">
+                            <div class="card-body pt-2 align-items-center">
+                                <div class="m-lg-4">
+
+                                    <div class="row text-center">
+                                        <h4>Step Five</h4>
+                                        <p><strong>FID BSA officer approves CRR</strong></p>
+                                    </div>
+
+                                    <form method="POST"  enctype="multipart/form-data">
+                                        {{ step_five_form.csrf_token }}
+                                        <div class="row justify-content-center text-center mt-2">
+                                            <div class="col-md-auto">
+                                                {{ step_five_form.approved_crr.label(class="form-label") }}
+                                                {{ step_five_form.approved_crr(class="form-control") }}
+                                            </div>
+                                            <div class="col-md-auto">
+                                                {{ step_five_form.approve_date.label(class="form-label") }}
+                                                {{ step_five_form.approve_date(class="form-control") }}
+                                            </div>
+                                            <div class="col-md-auto mt-4">
+                                                {{ step_five_form.approve_btn(class="btn update-btn") }}
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form method="POST">
+                                        {{ download_approved_crr_form.csrf_token }}
+                                        <div class="row justify-content-center mt-2">
+                                            <div class="col-auto text-center">
+                                                {{ download_approved_crr_form.download_file3_btn(class="btn update-btn") }}
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+                
+            </div>
+        </section><!-- End About Us Section -->
+    
+
+    </main><!-- End #main -->
+    
+    <!-- Vendor JS Files -->
+    <script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/static/assets/vendor/aos/aos.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/static/assets/js/main.js"></script>
+    
+    </body>
+    
+    </html>
+    
