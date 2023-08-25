@@ -328,3 +328,33 @@ curs.execute('''
 conn.commit()
 curs.close()
 conn.close()
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+conn = sqlite3.connect(os.path.join(project_dir, "databases", 'User_Log.db')) 
+curs = conn.cursor()
+
+curs.execute('''
+          CREATE TABLE IF NOT EXISTS Log_Info
+          ([ID] INTEGER PRIMARY KEY, [Request_Date] TIMESTAMP not null, [Request_IP] TEXT not null,
+          [Request_Method] TEXT not null, [Request_Path] TEXT not null, [Request_Form] TEXT not null, [Request_Status] TEXT not null)
+          ''')
+
+conn.commit()
+curs.close()
+conn.close()
+
+
+
+conn = sqlite3.connect(os.path.join(project_dir, 'User_Admin.db')) 
+c = conn.cursor()
+
+c.execute('''
+          CREATE TABLE IF NOT EXISTS User_Info
+          ([ID] INTEGER PRIMARY KEY, [Name] TEXT not null,
+          [Password] TEXT not null, [Email] TEXT not null, 
+          [IP] TEXT not null)
+          ''')
+
+conn.commit()
+conn.close()
