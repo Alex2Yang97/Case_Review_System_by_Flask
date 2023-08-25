@@ -11,6 +11,7 @@ Database\Database-test
 EDD_Database_test.db
 
 
+
 conn = sqlite3.connect(os.path.join(TEST_DIR, 'EDD_Database_test.db')) 
 curs = conn.cursor()
 
@@ -83,6 +84,7 @@ curs.execute('''
 conn.commit()
 curs.close()
 conn.close()
+
 
 conn = sqlite3.connect(os.path.join(TEST_DIR, 'EDD_Database_test.db')) 
 curs = conn.cursor()
@@ -329,7 +331,6 @@ conn.commit()
 curs.close()
 conn.close()
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 conn = sqlite3.connect(os.path.join(project_dir, "databases", 'User_Log.db')) 
 curs = conn.cursor()
